@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>南インド発シーフード輸入プロジェクト</title>
+    <style>
+        :root {
+            --green-1: #1B512D;
+            --green-2: #7FB069;
+            --earth-1: #E6AA68;
+            --earth-2: #A67458;
+            --light: #F3F9E3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--green-1);
+            line-height: 1.6;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%237fb069' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: var(--green-1);
+            color: var(--light);
+            padding: 40px 0;
+            position: relative;
+            overflow: hidden;
+            border-bottom-left-radius: 30% 50px;
+            border-bottom-right-radius: 70% 30px;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f3f9e3' fill-opacity='0.1'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            z-index: 1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: "";
+            display: block;
+            width: 70%;
+            height: 8px;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,4 C15,0 35,8 50,4 C65,0 85,8 100,4' stroke='%23E6AA68' stroke-width='2' fill='none' /%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            position: absolute;
+            bottom: -10px;
+            left: 15%;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: var(--earth-1);
+            font-weight: 300;
+        }
+
+        main {
+            padding: 40px 0;
+        }
+
+        .section {
+            margin-bottom: 60px;
+            padding: 30px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section:nth-child(odd) {
+            border-top-right-radius: 60px;
+            border-bottom-left-radius: 60px;
+        }
+
+        .section:nth-child(even) {
+            border-top-left-radius: 60px;
+            border-bottom-right-radius: 60px;
+        }
+
+        .section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background-color: var(--green-2);
+            border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            color: var(--green-1);
+        }
+
+        .section-title .icon {
+            margin-right: 15px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--green-2);
+            border-radius: 50%;
+            color: white;
+        }
+
+        .section-divider {
+            margin: 30px 0;
+            height: 30px;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,15 C15,5 25,25 50,15 C75,5 85,25 100,15' stroke='%237FB069' stroke-width='1' fill='none' stroke-dasharray='2,2' /%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            position: relative;
+        }
+
+        .section-divider::before,
+        .section-divider::after {
+            content: "";
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: var(--earth-1);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .section-divider::before {
+            left: 0;
+        }
+
+        .section-divider::after {
+            right: 0;
+        }
+
+        .sub-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--earth-2);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+
+        .sub-title::before {
+            content: "";
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='20' height='20'%3E%3Cpath fill='%23A67458' d='M12,2L4.5,20.29L5.21,21L18.79,21L19.5,20.29L12,2Z'/%3E%3C/svg%3E");
+        }
+
+        .content-box {
+            background-color: rgba(243, 249, 227, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--green-2);
+        }
+
+        .content-box ul {
+            list-style-type: none;
+            margin-left: 20px;
+        }
+
+        .content-box li {
+            position: relative;
+            margin-bottom: 10px;
+            padding-left: 25px;
+        }
+
+        .content-box li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 6px;
+            width: 15px;
+            height: 15px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='15' height='15'%3E%3Cpath fill='%237FB069' d='M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+        }
+
+        .summary-box {
+            background-color: var(--green-1);
+            color: var(--light);
+            padding: 30px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .summary-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f3f9e3' fill-opacity='0.1'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            z-index: 1;
+        }
+
+        .summary-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .summary-title {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .summary-title::before {
+            content: "";
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            margin-right: 10px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='25' height='25'%3E%3Cpath fill='%23E6AA68' d='M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+        }
+
+        .summary-box p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .leaf-divider {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .leaf-divider svg {
+            width: 50%;
+            max-width: 300px;
+        }
+
+        footer {
+            background-color: var(--green-1);
+            color: var(--light);
+            padding: 30px 0;
+            text-align: center;
+            border-top-left-radius: 70% 30px;
+            border-top-right-radius: 30% 50px;
+            position: relative;
+        }
+
+        footer::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 10px;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,5 C25,15 75,-5 100,5' stroke='%23E6AA68' stroke-width='2' fill='none' /%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .sub-title {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content container">
+            <h1>南インド発高品質シーフード輸入プロジェクト</h1>
+            <p class="subtitle">SMARTゴールと水平思考による推進計画</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Specific セクション -->
+        <section class="section">
+            <h2 class="section-title">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="white" d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4M11,16.5L6.5,12L7.91,10.59L11,13.67L16.59,8.09L18,9.5L11,16.5Z"/>
+                    </svg>
+                </div>
+                1. Specific（具体的で明確な目標）
+            </h2>
+
+            <h3 class="sub-title">目標内容</h3>
+            <div class="content-box">
+                <p>南インドのケララ州とタミル・ナドゥ州の漁港や養殖業者から、持続可能かつ高品質のシーフード（エビ、カニ、ホワイトフィッシュ等）を安定して仕入れ、日本国内の高級レストラン、専門小売店、そして一般消費者に販売するサプライチェーンを構築する。</p>
+            </div>
+
+            <h3 class="sub-title">水平思考の視点</h3>
+            <div class="content-box">
+                <ul>
+                    <li>仕入れ先を大手漁業組合だけでなく、小規模な家族経営の養殖場や女性主導の沿岸コミュニティ漁業グループなど、通常見落とされがちなサプライヤーを開拓し、社会的インパクトを創出する。</li>
+                    <li>デジタルトレーサビリティシステムを導入し、消費者がQRコードを通じて漁獲から食卓までの「ストーリー」を追跡できる透明性の高い流通モデルを構築する。</li>
+                    <li>「廃棄ゼロ」アプローチを採用し、主要商品に選ばれなかった魚介類を加工品（フィッシュパウダー、調味料など）に変換する循環型ビジネスモデルを確立する。</li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Measurable セクション -->
+        <section class="section">
+            <h2 class="section-title">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="white" d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3M9 17H7V10H9V17M13 17H11V7H13V17M17 17H15V13H17V17Z"/>
+                    </svg>
+                </div>
+                2. Measurable（測定可能な指標）
+            </h2>
+
+            <h3 class="sub-title">具体的な数値目標の設定例</h3>
+            <div class="content-box">
+                <ul>
+                    <li>初年度：月間1.5トンのシーフードを輸入し、月商2,000万円を達成する。</li>
+                    <li>2年目：輸入量を月間3トンに拡大し、月商4,000万円を達成する。</li>
+                    <li>製品廃棄率を業界平均の15%から5%未満に抑える。</li>
+                    <li>継続顧客数を80社（高級レストラン50社、専門小売店30社）に到達させる。</li>
+                </ul>
+            </div>
+
+            <h3 class="sub-title">水平思考の視点</h3>
+            <div class="content-box">
+                <ul>
+                    <li>「鮮度指数」という独自の品質評価システムを開発し、漁獲から消費までの時間、温度変化、保管条件を数値化。この指数が90%以上の製品のみを出荷し、品質の可視化による差別化を図る。</li>
+                    <li>従来の「売上」だけでなく「インパクトメトリクス」を導入：持続可能な漁業に転換した漁業者数、支援した女性漁業者の所得向上率、海洋プラスチック削減量などを測定し、ESG投資家や環境意識の高い消費者に訴求する。</li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Achievable セクション -->
+        <section class="section">
+            <h2 class="section-title">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="white" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/>
+                    </svg>
+                </div>
+                3. Achievable（達成可能かつ現実的）
+            </h2>
+
+            <h3 class="sub-title">達成のためのリソース整理</h3>
+            <div class="content-box">
+                <ul>
+                    <li>インド現地に信頼できるパートナー（ケララ州漁業協同組合、流通専門企業）を確保し、品質基準を満たすサプライヤーネットワークを構築する。</li>
+                    <li>HACCP、MSC、ASC等の認証取得を支援するコンサルタントと契約し、輸入手続きの効率化と安全性確保を実現する。</li>
+                    <li>日本の輸入業者、卸業者とのパートナーシップ構築により、販路を確保する。</li>
+                    <li>リスク対策として、気候条件の異なる複数地域からの調達ルート確保と、為替変動に対するヘッジ戦略を導入する。</li>
+                </ul>
+            </div>
+
+            <h3 class="sub-title">水平思考の視点</h3>
+            <div class="content-box">
+                <ul>
+                    <li>食品テクノロジー企業と提携し、鮮度保持期間を通常の1.5倍に延長できる革新的包装技術を導入する。</li>
+                    <li>通常の輸送手段に加え、インド-日本間の国際LCCの貨物スペースを活用した小ロット・高速空輸システムを構築し、特に高級食材の鮮度維持と物流コスト削減を両立させる。</li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Relevant セクション -->
+        <section class="section">
+            <h2 class="section-title">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="white" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.67 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"/>
+                    </svg>
+                </div>
+                4. Relevant（事業や戦略との整合性・意義）
+            </h2>
+
+            <h3 class="sub-title">事業戦略との関連付け</h3>
+            <div class="content-box">
+                <ul>
+                    <li>「海と人をつなぐ持続可能な食文化の創造」という企業ミッションの実現に直結し、未開拓市場からの価値ある食材の発掘という当社の強みを活かす。</li>
+                    <li>既存の輸入食材ビジネスとのシナジーを生み出し、物流・通関・販売ネットワークを共有化することでコスト効率を高める。</li>
+                    <li>「エシカル・プレミアム」というブランドポジショニングを確立し、持続可能性と品質の両方を重視する消費者セグメントに訴求する。</li>
+                </ul>
+            </div>
+
+            <h3 class="sub-title">水平思考の視点</h3>
+            <div class="content-box">
+                <ul>
+                    <li>単なる「食材」輸入にとどまらず、南インド沿岸部の食文化と調理法を含めた「体験」を提供するオンラインクッキングクラスを定期開催し、新たな収益源とブランド構築を同時に実現する。</li>
+                    <li>日本の伝統的な水産加工技術をインド現地に導入する技術交流プログラムを立ち上げ、双方向の文化交流と製品革新を促進する。</li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="section-divider"></div>
+
+        <!-- Time-bound セクション -->
+        <section class="section">
+            <h2 class="section-title">
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="white" d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z"/>
+                    </svg>
+                </div>
+                5. Time-bound（期限を設定する）
+            </h2>
+
+            <h3 class="sub-title">タイムラインの例</h3>
+            <div class="content-box">
+                <ul>
+                    <li>0～3か月目: 南インド沿岸主要5地域でのサプライヤーマッピング完了、現地パートナー選定、各種認証取得計画策定</li>
+                    <li>3～6か月目: パイロット輸入（月間500kg）開始、日本国内5都市でのテストマーケティング実施</li>
+                    <li>6～12か月目: 月間1.5トン規模の本格輸入体制確立、東京・大阪・名古屋の主要高級レストラン30店舗との取引開始</li>
+                    <li>12～18か月目: ECプラットフォーム立ち上げ、一般消費者向け販売開始、月間2.5トンへ拡大</li>
+                    <li>18～24か月目: 商品ラインの拡充（調理済み冷凍食品、調味料等）、月間3トン体制の確立</li>
+                </ul>
+            </div>
+
+            <h3 class="sub-title">水平思考の視点</h3>
+            <div class="content-box">
+                <ul>
+                    <li>四半期ごとに「クロスインダストリー・イノベーションデー」を設定し、異業種（宇宙食開発、医薬品保存技術等）からの技術やアイデアを積極的に取り入れる機会を制度化する。</li>
+                    <li>年2回の「適応型戦略見直し」を実施し、市場フィードバックをもとに商品構成や販路を機動的に調整。固定的なタイムラインではなく、「進化するロードマップ」として柔軟に計画を修正する。</li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="leaf-divider">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 50">
+                <path d="M0,25 C100,0 150,50 200,25 C250,0 300,50 400,25" stroke="#7FB069" stroke-width="2" fill="none" />
+                <path d="M50,25 C60,15 70,35 80,25" stroke="#E6AA68" stroke-width="2" fill="none" />
+                <path d="M320,25 C330,15 340,35 350,25" stroke="#E6AA68" stroke-width="2" fill="none" />
+                <circle cx="200" cy="25" r="8" fill="#1B512D" />
+                <circle cx="100" cy="15" r="5" fill="#A67458" />
+                <circle cx="300" cy="15" r="5" fill="#A67458" />
+            </svg>
+        </div>
+
+        <!-- まとめ セクション -->
+        <section class="summary-box">
+            <div class="summary-content">
+                <h2 class="summary-title">まとめ</h2>
+                <p>南インド発シーフード輸入事業は、単なる商品取引を超え、持続可能性、透明性、そして文化的価値を統合した総合的なエコシステム構築として位置づけることで差別化が可能です。SMARTゴールの枠組みに水平思考を組み合わせることで、業界の常識にとらわれない創造的なアプローチが生まれ、環境・社会・経済の三側面でポジティブインパクトを生み出せます。</p>
+                <p>特に重要なのは、デジタル技術とストーリーテリングを活用した透明性の確保、小規模生産者との直接的な関係構築、そして「食材」を超えた「文化・体験」としての価値提案です。これらによって、価格競争に陥りがちな輸入食品市場において、独自のポジションを確立し、持続的な事業成長と社会的価値創出の両立が期待できます。</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 南インド発シーフードプロジェクト</p>
+        </div>
+    </footer>
+</body>
+</html>
