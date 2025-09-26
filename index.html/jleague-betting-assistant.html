@@ -74,11 +74,11 @@
                 </button>
                 <button class="tab-btn flex-1 py-3 px-2 font-medium" data-tab="betting">
                     <i class="fas fa-chart-line mr-1"></i>
-                    ベッティング
+                    ベッティング分析
                 </button>
-                <button class="tab-btn flex-1 py-3 px-2 font-medium" data-tab="education">
-                    <i class="fas fa-graduation-cap mr-1"></i>
-                    学習
+                <button class="tab-btn flex-1 py-3 px-2 font-medium" data-tab="ai-debate">
+                    <i class="fas fa-robot mr-1"></i>
+                    AIディベート
                 </button>
                 <button class="tab-btn flex-1 py-3 px-2 font-medium" data-tab="stats">
                     <i class="fas fa-percentage mr-1"></i>
@@ -155,8 +155,8 @@
             </div>
         </div>
         <div id="betting-tab" class="tab-content hidden">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-6">
+                <div class="bg-white rounded-lg shadow-md p-6 xl:col-span-1">
                     <h3 class="text-lg font-bold mb-4">
                         <i class="fas fa-calculator mr-2 text-green-600"></i>
                         期待値（EV）計算機
@@ -177,7 +177,7 @@
                         <div id="ev-result" class="hidden mt-4 p-4 rounded-lg"></div>
                     </div>
                 </div>
-                <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="bg-white rounded-lg shadow-md p-6 xl:col-span-1">
                     <h3 class="text-lg font-bold mb-4">
                         <i class="fas fa-balance-scale mr-2 text-blue-600"></i>
                         ケリー基準計算機
@@ -201,92 +201,107 @@
                         <div id="kelly-result" class="hidden mt-4 p-4 rounded-lg"></div>
                     </div>
                 </div>
+                <div class="bg-white rounded-lg shadow-md p-6 xl:col-span-1">
+                    <h3 class="text-lg font-bold mb-4">
+                        <i class="fas fa-seedling mr-2 text-emerald-600"></i>
+                        バンクロール成長シミュレーター
+                    </h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">初期資金（円）</label>
+                            <input type="number" id="sim-bankroll" class="w-full p-2 border rounded" value="100000">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">1ベットあたり平均オッズ</label>
+                            <input type="number" id="sim-odds" class="w-full p-2 border rounded" step="0.1" value="2.1">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">勝率（%）</label>
+                            <input type="number" id="sim-prob" class="w-full p-2 border rounded" value="55">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">ベット回数</label>
+                            <input type="number" id="sim-bets" class="w-full p-2 border rounded" value="100">
+                        </div>
+                        <button onclick="runSimulation()" class="w-full bg-emerald-600 text-white py-2 rounded font-bold hover:bg-emerald-700">
+                            シミュレーション実行
+                        </button>
+                        <div id="sim-result" class="hidden mt-4 p-4 rounded-lg bg-emerald-50 border-2 border-emerald-500 text-sm"></div>
+                    </div>
+                </div>
             </div>
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-xl font-bold mb-4">
-                    <i class="fas fa-fire mr-2 text-orange-500"></i>
-                    高期待値試合
-                </h2>
-                <div id="high-ev-matches" class="space-y-4"></div>
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                <div class="bg-white rounded-lg shadow-md p-6 xl:col-span-2">
+                    <h2 class="text-xl font-bold mb-4">
+                        <i class="fas fa-fire mr-2 text-orange-500"></i>
+                        高期待値試合
+                    </h2>
+                    <div id="high-ev-matches" class="space-y-4"></div>
+                </div>
+                <div class="bg-white rounded-lg shadow-md p-6 space-y-4">
+                    <h3 class="text-lg font-bold">
+                        <i class="fas fa-clipboard-check mr-2 text-rose-500"></i>
+                        リスク管理チェックリスト
+                    </h3>
+                    <ul class="text-sm space-y-3" id="risk-checklist"></ul>
+                    <div class="bg-yellow-50 border border-yellow-200 rounded p-3 text-xs">
+                        <i class="fas fa-info-circle text-yellow-600 mr-1"></i>
+                        週次のリスクレビューを忘れずに。EVがマイナスの場合は必ず回避してください。
+                    </div>
+                </div>
             </div>
         </div>
-        <div id="education-tab" class="tab-content hidden">
-            <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-6 mb-6">
-                <h2 class="text-2xl font-bold mb-3">
-                    <i class="fas fa-graduation-cap mr-2"></i>
-                    ベッティング基礎知識
-                </h2>
-                <p>数学的根拠に基づいた、責任あるベッティングの方法を学びましょう</p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-lg font-bold mb-4">期待値（EV）とは？</h3>
-                    <div class="space-y-3">
-                        <p class="text-sm">期待値は長期的な利益を予測する重要な指標です。</p>
-                        <div class="bg-blue-50 p-3 rounded">
-                            <p class="font-mono text-sm">EV = (勝率 × 利益) - (負け率 × 損失)</p>
+        <div id="ai-debate-tab" class="tab-content hidden">
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                <div class="xl:col-span-2 space-y-6">
+                    <div class="bg-white rounded-lg shadow-md p-6 h-full">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-bold">
+                                <i class="fas fa-comments mr-2 text-indigo-500"></i>
+                                AIディベートルーム
+                            </h2>
+                            <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded">責任あるアドバイスのみ表示</span>
                         </div>
-                        <ul class="text-sm space-y-2">
-                            <li><span class="text-green-600 font-bold">EV &gt; 0</span>: 長期的に利益が期待できる</li>
-                            <li><span class="text-red-600 font-bold">EV &lt; 0</span>: 長期的に損失の可能性</li>
+                        <div id="debate-chat" class="h-72 overflow-y-auto space-y-3 bg-gray-50 p-4 rounded"></div>
+                        <form id="debate-form" class="mt-4 flex gap-2">
+                            <input type="text" id="debate-input" class="flex-1 border rounded px-3 py-2" placeholder="AIに相談したいことを入力..." required>
+                            <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">送信</button>
+                        </form>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-bold mb-3">
+                            <i class="fas fa-bullhorn mr-2 text-orange-500"></i>
+                            ホットトピックディスカッション
+                        </h3>
+                        <div id="hot-topics" class="space-y-3"></div>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-bold mb-3">
+                            <i class="fas fa-users mr-2 text-teal-500"></i>
+                            コミュニティ予想ボード
+                        </h3>
+                        <div id="community-predictions" class="space-y-3"></div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-bold mb-3">
+                            <i class="fas fa-user-tie mr-2 text-blue-500"></i>
+                            エキスパート分析
+                        </h3>
+                        <div id="expert-analysis" class="space-y-3 text-sm"></div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-bold mb-3">
+                            <i class="fas fa-graduation-cap mr-2 text-purple-500"></i>
+                            ベッティング学習メモ
+                        </h3>
+                        <ul class="text-sm space-y-2 text-gray-700">
+                            <li><strong>EV（期待値）</strong>: 長期的な平均利益を示す指標。プラスの案件のみ選択。</li>
+                            <li><strong>ケリー基準</strong>: 最適ベット比率の計算式。現実運用では25%以下で安全に。</li>
+                            <li><strong>ROI</strong>: 投下資金に対する利益率。短期ではブレが大きいため月単位で評価。</li>
+                            <li><strong>資金管理</strong>: 1ベットは資金の1-2%、月間損失は収入の5%以内を厳守。</li>
                         </ul>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-lg font-bold mb-4">ケリー基準とは？</h3>
-                    <div class="space-y-3">
-                        <p class="text-sm">資金管理の数学的最適解を提供する公式です。</p>
-                        <div class="bg-green-50 p-3 rounded">
-                            <p class="font-mono text-sm">f = (p × b - q) / b</p>
-                            <p class="text-xs mt-2">f: ベット割合, p: 勝率, b: オッズ-1, q: 負け率</p>
-                        </div>
-                        <div class="bg-yellow-50 p-3 rounded text-sm">
-                            <i class="fas fa-lightbulb text-yellow-600 mr-1"></i>
-                            実際は完全ケリーの25%程度が安全です
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-lg font-bold mb-4">資金管理の鉄則</h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-600 mr-2 mt-1"></i>
-                            <div>
-                                <p class="font-semibold">1回のベットは総資金の1-2%まで</p>
-                                <p class="text-sm text-gray-600">大きな損失を避ける基本ルール</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-600 mr-2 mt-1"></i>
-                            <div>
-                                <p class="font-semibold">月間損失上限を設定</p>
-                                <p class="text-sm text-gray-600">収入の5%以下を推奨</p>
-                            </div>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-600 mr-2 mt-1"></i>
-                            <div>
-                                <p class="font-semibold">感情的な賭けを避ける</p>
-                                <p class="text-sm text-gray-600">負けを取り返そうとしない</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="bg-white rounded-lg shadow-md p-6">
-                    <h3 class="text-lg font-bold mb-4">よくある失敗と対策</h3>
-                    <div class="space-y-3">
-                        <div class="border-l-4 border-red-500 pl-3">
-                            <p class="font-semibold text-red-600">マーチンゲール法の罠</p>
-                            <p class="text-sm">負けたら倍賭けは破産への道。絶対に避けましょう。</p>
-                        </div>
-                        <div class="border-l-4 border-red-500 pl-3">
-                            <p class="font-semibold text-red-600">確証バイアス</p>
-                            <p class="text-sm">都合の良い情報だけを見ない。客観的なデータ分析を。</p>
-                        </div>
-                        <div class="border-l-4 border-red-500 pl-3">
-                            <p class="font-semibold text-red-600">オーバーベット</p>
-                            <p class="text-sm">「確実」な賭けはない。常に適切な金額を維持。</p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -399,7 +414,21 @@
             currentMonthlyLoss: 0,
             matches: [],
             standings: [],
-            performanceChart: null
+            performanceChart: null,
+            debateInitialized: false,
+            debateMessages: [],
+            communityPredictions: [
+                { match: '浦和レッズ vs ガンバ大阪', pick: '浦和レッズ勝利', confidence: 72, rationale: 'ホーム11試合連続無敗' },
+                { match: 'アビスパ福岡 vs 湘南ベルマーレ', pick: '引き分け', confidence: 61, rationale: '両チーム守備的で失点少ない' }
+            ],
+            hotTopics: [
+                { title: '夏場の連戦でローテーションは必要？', summary: '疲労度指数が高いチームほど失点率が上がる傾向が判明。控え選手の活用を評価。' },
+                { title: '昇格組の勢いはいつまで続く？', summary: '過去5年のデータでは開幕10試合以降に勝率が平均12%低下。リスク管理が重要。' }
+            ],
+            expertInsights: [
+                { analyst: '統計アナリスト・佐藤', insight: '期待値がプラスでも資金管理を徹底し、1ベット2%以内に抑えること。' },
+                { analyst: '戦術コーチ・田中', insight: '川崎は4-3-3から3バックへ可変するため、サイド攻防が鍵。怪我人情報を必ず確認。' }
+            ]
         };
         document.querySelectorAll('.tab-btn').forEach(btn => {
             btn.addEventListener('click', function() {
@@ -425,6 +454,9 @@
                     break;
                 case 'betting':
                     loadBettingAnalysis();
+                    break;
+                case 'ai-debate':
+                    loadAIDebate();
                     break;
                 case 'stats':
                     loadStatistics();
@@ -626,6 +658,168 @@
                 `;
             });
             highEVDiv.innerHTML = html;
+
+            const checklistDiv = document.getElementById('risk-checklist');
+            if (checklistDiv) {
+                const recommendedBetFraction = Math.max(0.005, Math.min(0.02, calculateConservativeKelly(0.55, 2.1)));
+                const checklist = [
+                    {
+                        text: `本日の損失は上限内か確認（現在 ¥${globalState.currentDailyLoss.toLocaleString()} / 上限 ¥${globalState.dailyLimit.toLocaleString()}）`,
+                        passed: globalState.currentDailyLoss <= globalState.dailyLimit
+                    },
+                    {
+                        text: `1ベットあたり資金の${(recommendedBetFraction * 100).toFixed(1)}%以内に収まっているか`,
+                        passed: true
+                    },
+                    {
+                        text: '直近の連敗回数を記録し、感情的な追い上げをしていないか',
+                        passed: true
+                    },
+                    {
+                        text: '最新のチームニュース（怪我・移籍）を確認済みか',
+                        passed: false
+                    }
+                ];
+
+                let checklistHTML = '';
+                checklist.forEach(item => {
+                    const statusIcon = item.passed ? '<i class="fas fa-check-circle text-green-500 mr-2"></i>' : '<i class="fas fa-exclamation-circle text-yellow-500 mr-2"></i>';
+                    const textClass = item.passed ? 'text-gray-700' : 'text-yellow-700 font-semibold';
+                    checklistHTML += `
+                        <li class="flex items-start">
+                            ${statusIcon}
+                            <span class="${textClass}">${item.text}</span>
+                        </li>
+                    `;
+                });
+                checklistDiv.innerHTML = checklistHTML;
+            }
+        }
+
+        function loadAIDebate() {
+            if (!globalState.debateInitialized) {
+                globalState.debateMessages = [
+                    { author: 'assistant', message: 'ようこそディベートルームへ。まずは本日の予算と上限を確認してから分析を始めましょう。' },
+                    { author: 'user', message: '今節で注目しているカードはありますか？' },
+                    { author: 'assistant', message: '鹿島 vs 神戸はニュースリスクが高いため、最新情報を確認してから判断するのが安全です。' }
+                ];
+                globalState.debateInitialized = true;
+            }
+
+            renderDebateChat();
+            renderCommunityPredictions();
+            renderHotTopics();
+            renderExpertAnalysis();
+        }
+
+        function renderDebateChat() {
+            const chatDiv = document.getElementById('debate-chat');
+            if (!chatDiv) return;
+
+            let chatHTML = '';
+            globalState.debateMessages.forEach(msg => {
+                const isUser = msg.author === 'user';
+                chatHTML += `
+                    <div class="flex ${isUser ? 'justify-end' : 'justify-start'}">
+                        <div class="${isUser ? 'bg-indigo-500 text-white' : 'bg-white border border-gray-200 text-gray-800'} px-3 py-2 rounded-lg shadow-sm max-w-full" style="max-width: 80%;">
+                            <p class="text-xs ${isUser ? 'text-indigo-100' : 'text-gray-400'} mb-1">${isUser ? 'あなた' : 'AIアナリスト'}</p>
+                            <p class="text-sm leading-relaxed">${msg.message}</p>
+                        </div>
+                    </div>
+                `;
+            });
+            chatDiv.innerHTML = chatHTML;
+            chatDiv.scrollTop = chatDiv.scrollHeight;
+        }
+
+        function addDebateMessage(author, message) {
+            globalState.debateMessages.push({ author, message });
+            renderDebateChat();
+        }
+
+        function renderCommunityPredictions() {
+            const container = document.getElementById('community-predictions');
+            if (!container) return;
+
+            let html = '';
+            globalState.communityPredictions.forEach(pred => {
+                html += `
+                    <div class="border rounded-lg p-3 bg-gray-50">
+                        <div class="flex justify-between items-center">
+                            <span class="font-semibold text-gray-800">${pred.match}</span>
+                            <span class="text-xs text-gray-500">信頼度 ${pred.confidence}%</span>
+                        </div>
+                        <p class="text-sm mt-1">推奨: <span class="font-bold text-indigo-600">${pred.pick}</span></p>
+                        <p class="text-xs text-gray-600 mt-1">${pred.rationale}</p>
+                        <div class="w-full bg-gray-200 h-2 rounded mt-2">
+                            <div class="h-2 bg-indigo-500 rounded" style="width: ${pred.confidence}%;"></div>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderHotTopics() {
+            const container = document.getElementById('hot-topics');
+            if (!container) return;
+
+            let html = '';
+            globalState.hotTopics.forEach(topic => {
+                html += `
+                    <div class="border-l-4 border-orange-400 pl-3 py-2 bg-orange-50 rounded">
+                        <p class="font-semibold text-orange-700">${topic.title}</p>
+                        <p class="text-xs text-orange-600 mt-1 leading-relaxed">${topic.summary}</p>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderExpertAnalysis() {
+            const container = document.getElementById('expert-analysis');
+            if (!container) return;
+
+            let html = '';
+            globalState.expertInsights.forEach(insight => {
+                html += `
+                    <div class="border border-blue-100 rounded p-3 bg-blue-50">
+                        <p class="font-semibold text-blue-700">${insight.analyst}</p>
+                        <p class="text-xs text-blue-600 mt-1 leading-relaxed">${insight.insight}</p>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function generateDebateResponse(message) {
+            const normalized = message.toLowerCase();
+            if (normalized.includes('オールイン') || normalized.includes('all-in')) {
+                return 'オールインは極めて危険です。必ず資金の1-2%以内で、損失上限を設定した上で冷静に判断しましょう。';
+            }
+            if (normalized.includes('おすすめ') || normalized.includes('bet') || normalized.includes('ベット')) {
+                return 'おすすめを探す前に、期待値と最新ニュース、怪我人情報を確認してください。EVがマイナスなら見送りが最善です。';
+            }
+            if (normalized.includes('連敗')) {
+                return '連敗中は賭け額を減らし、分析の質を高めることに集中しましょう。損失上限を超える場合は休憩が必要です。';
+            }
+            return 'まずは試合のコンディション、オッズ変動、ニュースの影響度を総合的に評価し、プラスEVの機会のみを狙いましょう。';
+        }
+
+        function handleDebateSubmit(event) {
+            event.preventDefault();
+            const input = document.getElementById('debate-input');
+            if (!input) return;
+            const message = input.value.trim();
+            if (!message) return;
+
+            addDebateMessage('user', message);
+            input.value = '';
+
+            setTimeout(() => {
+                const response = generateDebateResponse(message);
+                addDebateMessage('assistant', response);
+            }, 400);
         }
         function loadStatistics() {
             const ctx = document.getElementById('performance-chart');
@@ -728,14 +922,22 @@
             `;
             resultDiv.classList.remove('hidden');
         }
+
+        function calculateConservativeKelly(prob, odds) {
+            const b = odds - 1;
+            if (b <= 0) {
+                return 0;
+            }
+            const fullKelly = Math.max(0, (prob * b - (1 - prob)) / b);
+            return fullKelly * 0.25;
+        }
+
         function calculateKelly() {
             const bankroll = parseFloat(document.getElementById('kelly-bankroll').value);
             const prob = parseFloat(document.getElementById('kelly-prob').value) / 100;
             const odds = parseFloat(document.getElementById('kelly-odds').value);
             if (!bankroll || !prob || !odds) return;
-            const b = odds - 1;
-            const kellyFraction = Math.max(0, (prob * b - (1 - prob)) / b);
-            const conservativeKelly = kellyFraction * 0.25;
+            const conservativeKelly = calculateConservativeKelly(prob, odds);
             const betAmount = Math.round(bankroll * conservativeKelly);
             const resultDiv = document.getElementById('kelly-result');
             resultDiv.innerHTML = `
@@ -753,6 +955,49 @@
             `;
             resultDiv.classList.remove('hidden');
         }
+
+        function runSimulation() {
+            const bankroll = parseFloat(document.getElementById('sim-bankroll').value);
+            const odds = parseFloat(document.getElementById('sim-odds').value);
+            const prob = parseFloat(document.getElementById('sim-prob').value) / 100;
+            const bets = parseInt(document.getElementById('sim-bets').value, 10);
+            if (!bankroll || !odds || !prob || !bets) {
+                return;
+            }
+            const trials = 500;
+            const betFraction = Math.max(0.005, Math.min(0.02, calculateConservativeKelly(prob, odds)));
+            const results = [];
+            for (let t = 0; t < trials; t++) {
+                let balance = bankroll;
+                for (let b = 0; b < bets; b++) {
+                    if (balance <= 0) {
+                        balance = 0;
+                        break;
+                    }
+                    const wager = balance * betFraction;
+                    if (Math.random() < prob) {
+                        balance += wager * (odds - 1);
+                    } else {
+                        balance -= wager;
+                    }
+                }
+                results.push(balance);
+            }
+            const average = results.reduce((acc, val) => acc + val, 0) / trials;
+            const best = Math.max(...results);
+            const worst = Math.min(...results);
+            const successRate = (results.filter(val => val > bankroll).length / trials) * 100;
+            const drawdownRate = (results.filter(val => val <= bankroll * 0.7).length / trials) * 100;
+            const resultDiv = document.getElementById('sim-result');
+            resultDiv.innerHTML = `
+                <p class="font-semibold text-emerald-700">平均最終残高: ¥${Math.round(average).toLocaleString()}</p>
+                <p class="text-sm mt-1">最良ケース: ¥${Math.round(best).toLocaleString()} / 最悪ケース: ¥${Math.round(worst).toLocaleString()}</p>
+                <p class="text-sm mt-1">資金が増える確率: ${successRate.toFixed(1)}% / 大きなドローダウン（30%以上）の確率: ${drawdownRate.toFixed(1)}%</p>
+                <p class="text-xs mt-2 text-gray-600">※ モンテカルロ法による概算です。現実の結果を保証するものではありません。</p>
+            `;
+            resultDiv.classList.remove('hidden');
+        }
+
         function showResponsibleGamblingInfo() {
             document.getElementById('responsible-modal').classList.remove('hidden');
         }
@@ -777,6 +1022,10 @@
         document.addEventListener('DOMContentLoaded', function() {
             loadDashboard();
             updateDailyLimitDisplay();
+            const debateForm = document.getElementById('debate-form');
+            if (debateForm) {
+                debateForm.addEventListener('submit', handleDebateSubmit);
+            }
         });
     </script>
 </body>
