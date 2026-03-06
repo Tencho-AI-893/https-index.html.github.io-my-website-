@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR会員証</title>
+    <style>
+      :root {
+        --bg: #0b0b0d;
+        --card: #151519;
+        --line: #2a2a31;
+        --gold: #d4af37;
+        --text: #f4f4f5;
+        --muted: #b2b2ba;
+        --ok: #22c55e;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: radial-gradient(circle at top, #1b1b22 0%, var(--bg) 60%);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans JP', sans-serif;
+        display: flex;
+        justify-content: center;
+      }
+
+      .wrap {
+        width: 100%;
+        max-width: 460px;
+        padding: 16px 14px 28px;
+      }
+
+      .card {
+        background: linear-gradient(160deg, #1a1a22 0%, var(--card) 80%);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 18px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+      }
+
+      .brand {
+        color: var(--gold);
+        letter-spacing: 0.08em;
+        font-size: 12px;
+        margin-bottom: 4px;
+      }
+
+      h1 {
+        margin: 0 0 16px;
+        font-size: 24px;
+      }
+
+      .meta {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        row-gap: 8px;
+        font-size: 14px;
+      }
+
+      .label { color: var(--muted); }
+
+      .qr {
+        margin-top: 18px;
+        text-align: center;
+      }
+
+      .qr img {
+        width: min(72vw, 260px);
+        height: auto;
+        border-radius: 12px;
+        background: #fff;
+        padding: 8px;
+      }
+
+      .btn {
+        width: 100%;
+        margin-top: 18px;
+        border: 0;
+        border-radius: 12px;
+        padding: 14px;
+        background: var(--gold);
+        color: #111;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .btn[disabled] {
+        opacity: .6;
+        cursor: not-allowed;
+      }
+
+      .status {
+        margin-top: 12px;
+        font-size: 14px;
+        text-align: center;
+      }
+
+      .ok { color: var(--ok); }
+      .err { color: #f87171; }
+
+      .notfound {
+        margin-top: 24px;
+        background: #19191f;
+        border: 1px solid #30303a;
+        border-radius: 14px;
+        padding: 16px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <? if (!member) { ?>
+        <div class="notfound">
+          <h2>会員証が見つかりません</h2>
+          <p>URLが無効、またはトークンが失効しています。</p>
+        </div>
+      <? } else { ?>
+        <div class="card">
+          <div class="brand">KARMA MEMBERSHIP</div>
+          <h1>デジタル会員証</h1>
+
+          <div class="meta">
+            <div class="label">会員番号</div><div><?= member.member_id ?></div>
+            <div class="label">ニックネーム</div><div><?= member.nickname ?></div>
+            <div class="label">ランク</div><div><?= member.rank ?></div>
+            <div class="label">有効期限</div><div><?= member.expires_at ?></div>
+            <div class="label">本日</div><div><?= member.today ?></div>
+            <div class="label">残り日数</div><div><?= member.days_left ?> 日</div>
+          </div>
+
+          <div class="qr">
+            <img src="<?= member.qr_url ?>" alt="会員証QRコード">
+          </div>
+
+          <button id="checkinBtn" class="btn">チェックイン</button>
+          <div id="status" class="status"></div>
+        </div>
+
+        <script>
+          const token = new URLSearchParams(location.search).get('t');
+          const btn = document.getElementById('checkinBtn');
+          const statusEl = document.getElementById('status');
+
+          btn.addEventListener('click', async () => {
+            try {
+              btn.disabled = true;
+              statusEl.className = 'status';
+              statusEl.textContent = '記録中…';
+
+              const res = await fetch(location.pathname, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+                body: new URLSearchParams({ action: 'checkin', t: token }).toString()
+              });
+
+              const data = await res.json();
+              if (data.ok) {
+                statusEl.className = 'status ok';
+                statusEl.textContent = 'チェックイン完了';
+              } else {
+                statusEl.className = 'status err';
+                statusEl.textContent = '記録に失敗: ' + (data.message || '不明なエラー');
+                btn.disabled = false;
+              }
+            } catch (err) {
+              statusEl.className = 'status err';
+              statusEl.textContent = '通信エラーでもう一度お試しください';
+              btn.disabled = false;
+            }
+          });
+        </script>
+      <? } ?>
+    </div>
+  </body>
+</html>
